@@ -28,8 +28,8 @@ const WORDS = {
 const I18N = {
   en: {
     subtitle: "Pass the phone. Beat the beep.",
-    setupTitle: "Setup",
-    setupDesc: "2 teams. 2 players each. Add names or leave blank.",
+    setupTitle: "Let’s Play",
+    setupDesc: "2 teams. 2 players each. Names optional.",
     teamAHead: "Team A",
     teamBHead: "Team B",
     teamName: "Team name",
@@ -43,14 +43,13 @@ const I18N = {
     rulesHead: "Quick rules",
     rules: [
       "Start the round: a word shows immediately.",
-      "Get your teammate to say it without you saying the word).",
+      "Get your teammate to say it without you saying the word.",
       "Tap the big circle to PASS (phone to other team).",
       "When it booms, the team holding the phone loses the round.",
     ],
     start: "Start",
     round: "Round",
     holdsPhone: "holds the phone",
-    yourWord: "Your word",
     wordSub: "Tap PASS when you hand the phone over.",
     startRound: "Start round",
     tapToPass: "Tap to PASS",
@@ -82,8 +81,8 @@ const I18N = {
   },
   ro: {
     subtitle: "Dă telefonul mai departe. Bate bipul.",
-    setupTitle: "Setare",
-    setupDesc: "2 echipe. 2 jucători fiecare. Poți adăuga nume sau nu.",
+    setupTitle: "Hai să jucăm",
+    setupDesc: "2 echipe. 2 jucători fiecare. Numele sunt opționale.",
     teamAHead: "Echipa A",
     teamBHead: "Echipa B",
     teamName: "Nume echipă",
@@ -97,14 +96,13 @@ const I18N = {
     rulesHead: "Reguli rapide",
     rules: [
       "Pornește runda: cuvântul apare imediat.",
-      "Fă-ți colegul să-l spună fara a spune tu cuvântul).",
+      "Fă-ți colegul să-l spună fara a spune tu cuvântul.",
       "Apasă cercul mare ca să DAI (telefonul la cealaltă echipă).",
       "Când face „boom”, echipa care ține telefonul pierde runda.",
     ],
     start: "Start",
     round: "Rundă",
     holdsPhone: "ține telefonul",
-    yourWord: "Cuvântul tău",
     wordSub: "Apasă DAI când dai telefonul mai departe.",
     startRound: "Pornește runda",
     tapToPass: "Apasă ca să DAI",
@@ -137,6 +135,35 @@ const I18N = {
 };
 
 const $ = (id) => document.getElementById(id);
+
+let thumpCtx = null;
+
+function playThump() {
+  if (!thumpCtx) {
+    thumpCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  if (thumpCtx.state === "suspended") {
+    thumpCtx.resume();
+  }
+
+  const osc = thumpCtx.createOscillator();
+  const gain = thumpCtx.createGain();
+
+  osc.type = "sine";
+  osc.frequency.setValueAtTime(140, thumpCtx.currentTime);
+  osc.frequency.exponentialRampToValueAtTime(60, thumpCtx.currentTime + 0.18);
+
+  gain.gain.setValueAtTime(0.001, thumpCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.8, thumpCtx.currentTime + 0.02);
+  gain.gain.exponentialRampToValueAtTime(0.001, thumpCtx.currentTime + 0.22);
+
+  osc.connect(gain);
+  gain.connect(thumpCtx.destination);
+
+  osc.start();
+  osc.stop(thumpCtx.currentTime + 0.25);
+}
 
 const screens = {
   setup: $("screenSetup"),
@@ -389,7 +416,6 @@ function renderI18N() {
 
   ui.roundLabel.textContent = i.round;
 
-  ui.wordLabel.textContent = i.yourWord;
   ui.wordSub.textContent = i.wordSub;
 
   ui.startRoundLabel.textContent = i.startRound;
@@ -824,6 +850,13 @@ function wire() {
     },
     { once: true }
   );
+
+  const startBtn = document.getElementById("startGame");
+
+  startBtn.addEventListener("pointerdown", () => {
+    playThump();
+    if (navigator.vibrate) navigator.vibrate(20);
+  });
 
   ui.startGame.addEventListener("click", () => {
     if (!applySetup()) return;
