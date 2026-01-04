@@ -83,8 +83,7 @@ const I18N = {
   ro: {
     subtitle: "Dă telefonul mai departe. Bate bipul.",
     setupTitle: "Setare",
-    setupDesc:
-      "2 echipe. 2 jucători fiecare. Poți adăuga nume sau le lași goale.",
+    setupDesc: "2 echipe. 2 jucători fiecare. Poți adăuga nume sau nu.",
     teamAHead: "Echipa A",
     teamBHead: "Echipa B",
     teamName: "Nume echipă",
@@ -119,7 +118,7 @@ const I18N = {
     roundStats: "Statistici rundă",
     pointTo: "Punct pentru",
     holdingPhone: "Ținea telefonul",
-    roundLength: "Durata rundă",
+    roundLength: "Durată rundă",
     wordsThisRound: "Cuvinte afișate în rundă",
     undoPoint: "Anulează punct",
     nextRound: "Runda următoare",
@@ -648,7 +647,7 @@ function pass() {
     hideHandoffOverlay();
     ui.bigPass.disabled = false;
     showWord(pickWord());
-  }, 2000);
+  }, 1000);
 }
 
 function endRound() {

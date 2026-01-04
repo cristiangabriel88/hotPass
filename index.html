@@ -1,6 +1,8 @@
 <!doctype html>
 <html lang="en">
 
+<!-- http://192.168.0.77:5500/index.html -->
+
 <head>
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
@@ -131,6 +133,21 @@
 		</section>
 
 		<section class="card screen hidden playShell" id="screenPlay" aria-label="Play screen">
+
+			<div class="wordCard" aria-label="Current word">
+				<div class="wordLabel" id="wordLabel">Your word</div>
+				<div class="wordNow" id="wordNow">—</div>
+				<div class="wordSub muted" id="wordSub">Tap PASS when you hand the phone over.</div>
+			</div>
+
+			<button class="bigPass" id="bigPass" type="button" disabled aria-label="Pass">
+				<div class="ringProgress" id="ringProgress"></div>
+				<div class="bigInner">
+					<div class="bigTime" id="bigTime">00:00</div>
+					<div class="bigHint" id="bigHint">Start round</div>
+				</div>
+			</button>
+
 			<div class="topScore">
 				<div class="scorePill">
 					<div class="sn" id="scoreNameA">Team A</div>
@@ -150,20 +167,6 @@
 				<span class="dotLive" aria-hidden="true"></span>
 				<span id="activeText">Team A holds the phone</span>
 			</div>
-
-			<div class="wordCard" aria-label="Current word">
-				<div class="wordLabel" id="wordLabel">Your word</div>
-				<div class="wordNow" id="wordNow">—</div>
-				<div class="wordSub muted" id="wordSub">Tap PASS when you hand the phone over.</div>
-			</div>
-
-			<button class="bigPass" id="bigPass" type="button" disabled aria-label="Pass">
-				<div class="ringProgress" id="ringProgress"></div>
-				<div class="bigInner">
-					<div class="bigTime" id="bigTime">00:00</div>
-					<div class="bigHint" id="bigHint">Start round</div>
-				</div>
-			</button>
 
 			<div class="bottomRow">
 				<button class="btn primary full" id="btnStartRound" type="button">
