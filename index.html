@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+	<title>Hot Pass</title>
+	<link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+	<div class="bg"></div>
+
+	<header class="topbar">
+		<div class="brand">
+			<div class="logo" aria-hidden="true">
+				<span class="dot"></span>
+				<span class="ring"></span>
+			</div>
+			<div class="brand-text">
+				<div class="title">Hot Pass</div>
+				<div class="subtitle" id="subtitle">Pass the phone. Beat the beep.</div>
+			</div>
+		</div>
+
+		<div class="top-actions">
+			<button class="chip" id="langToggle" type="button" aria-label="Language toggle">
+				<span class="chip-icon" aria-hidden="true">🌐</span>
+				<span id="langLabel">EN</span>
+			</button>
+			<button class="chip" id="soundToggle" type="button" aria-label="Sound toggle">
+				<span class="chip-icon" aria-hidden="true">🔊</span>
+				<span id="soundLabel">ON</span>
+			</button>
+		</div>
+	</header>
+
+	<main class="wrap">
+		<section class="card screen" id="screenSetup" aria-label="Setup screen">
+			<div class="card-head">
+				<h1 id="setupTitle">Setup</h1>
+				<p class="muted" id="setupDesc">2 teams. 2 players each. Add names or leave blank.</p>
+			</div>
+
+			<div class="grid2">
+				<div class="panel">
+					<div class="panel-head">
+						<div class="pill" id="teamAHead">Team A</div>
+					</div>
+					<div class="field">
+						<label for="teamAName" id="teamNameLabelA">Team name</label>
+						<input id="teamAName" type="text" placeholder="Team A" autocomplete="off" />
+					</div>
+					<div class="field">
+						<label for="aP1" id="player1LabelA">Player 1</label>
+						<input id="aP1" type="text" placeholder="Player 1" autocomplete="off" />
+					</div>
+					<div class="field">
+						<label for="aP2" id="player2LabelA">Player 2</label>
+						<input id="aP2" type="text" placeholder="Player 2" autocomplete="off" />
+					</div>
+				</div>
+
+				<div class="panel">
+					<div class="panel-head">
+						<div class="pill" id="teamBHead">Team B</div>
+					</div>
+					<div class="field">
+						<label for="teamBName" id="teamNameLabelB">Team name</label>
+						<input id="teamBName" type="text" placeholder="Team B" autocomplete="off" />
+					</div>
+					<div class="field">
+						<label for="bP1" id="player1LabelB">Player 1</label>
+						<input id="bP1" type="text" placeholder="Player 1" autocomplete="off" />
+					</div>
+					<div class="field">
+						<label for="bP2" id="player2LabelB">Player 2</label>
+						<input id="bP2" type="text" placeholder="Player 2" autocomplete="off" />
+					</div>
+				</div>
+			</div>
+
+			<div class="divider"></div>
+
+			<div class="grid2">
+				<div class="panel compact">
+					<div class="field">
+						<label for="playTo" id="playToLabel">Play to</label>
+						<div class="row">
+							<input id="playTo" type="number" min="1" max="25" value="5" />
+							<div class="hint" id="playToHint">First team to reach this score wins.</div>
+						</div>
+					</div>
+
+					<div class="field">
+						<label id="rangeLabel">Boom timer range</label>
+						<div class="row gap">
+							<div class="row">
+								<input id="minSec" type="number" min="5" max="60" value="8" />
+								<span class="unit" id="secLabel1">sec</span>
+							</div>
+							<span class="muted">—</span>
+							<div class="row">
+								<input id="maxSec" type="number" min="6" max="90" value="20" />
+								<span class="unit" id="secLabel2">sec</span>
+							</div>
+						</div>
+						<div class="hint" id="rangeHint">Random each round. Beeps speed up near the end.</div>
+					</div>
+				</div>
+
+				<div class="panel compact">
+					<div class="panel-head">
+						<div class="pill alt" id="rulesHead">Quick rules</div>
+					</div>
+					<ul class="rules" id="rulesList">
+						<li>Start the round: a word shows immediately.</li>
+						<li>Get your teammate to say it (don’t say the word).</li>
+						<li>Tap the big circle to PASS (phone to other team).</li>
+						<li>When it booms, the team holding the phone loses the round.</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="actions">
+				<button class="btn primary" id="startGame" type="button">
+					<span id="startGameLabel">Start</span>
+					<span class="kbd" aria-hidden="true">↵</span>
+				</button>
+			</div>
+		</section>
+
+		<section class="card screen hidden playShell" id="screenPlay" aria-label="Play screen">
+			<div class="topScore">
+				<div class="scorePill">
+					<div class="sn" id="scoreNameA">Team A</div>
+					<div class="sv" id="scoreA">0</div>
+				</div>
+				<div class="roundPill">
+					<div class="rl" id="roundLabel">Round</div>
+					<div class="rv" id="roundNum">1</div>
+				</div>
+				<div class="scorePill">
+					<div class="sn" id="scoreNameB">Team B</div>
+					<div class="sv" id="scoreB">0</div>
+				</div>
+			</div>
+
+			<div class="activeLine" id="activeLine">
+				<span class="dotLive" aria-hidden="true"></span>
+				<span id="activeText">Team A holds the phone</span>
+			</div>
+
+			<div class="wordCard" aria-label="Current word">
+				<div class="wordLabel" id="wordLabel">Your word</div>
+				<div class="wordNow" id="wordNow">—</div>
+				<div class="wordSub muted" id="wordSub">Tap PASS when you hand the phone over.</div>
+			</div>
+
+			<button class="bigPass" id="bigPass" type="button" disabled aria-label="Pass">
+				<div class="ringProgress" id="ringProgress"></div>
+				<div class="bigInner">
+					<div class="bigTime" id="bigTime">00:00</div>
+					<div class="bigHint" id="bigHint">Start round</div>
+				</div>
+			</button>
+
+			<div class="bottomRow">
+				<button class="btn primary full" id="btnStartRound" type="button">
+					<span id="startRoundLabel">Start round</span>
+				</button>
+				<div class="bottomActions">
+					<button class="btn ghost" id="backToSetup" type="button">
+						<span aria-hidden="true">←</span>
+						<span id="backLabel">Back</span>
+					</button>
+					<button class="btn" id="resetBtn" type="button">
+						<span aria-hidden="true">↺</span>
+						<span id="resetLabel">Reset</span>
+					</button>
+				</div>
+			</div>
+
+			<div class="handoff hidden" id="handoff" aria-live="polite">
+				<div class="handoffCard">
+					<div class="handoffTop">
+						<div class="handoffTitle" id="handoffTitle">Hand the phone</div>
+						<div class="handoffChip" id="handoffTeam">Team B</div>
+					</div>
+					<div class="handoffSub muted" id="handoffSub">New word in 2 seconds…</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="card screen hidden" id="screenRoundEnd" aria-label="Round end screen">
+			<div class="card-head center">
+				<div class="badge" id="roundEndBadge">Round result</div>
+				<h2 id="roundEndTitle">BOOM!</h2>
+				<p class="muted" id="roundEndDesc">Round statistics</p>
+			</div>
+
+			<div class="summary">
+				<div class="sumcard">
+					<div class="sumlabel" id="sumWinnerLabel">Point to</div>
+					<div class="sumvalue" id="sumWinner">—</div>
+				</div>
+				<div class="sumcard">
+					<div class="sumlabel" id="sumLoserLabel">Holding phone</div>
+					<div class="sumvalue" id="sumLoser">—</div>
+				</div>
+				<div class="sumcard">
+					<div class="sumlabel" id="sumTimeLabel">Round length</div>
+					<div class="sumvalue" id="sumTime">—</div>
+				</div>
+			</div>
+
+			<div class="divider"></div>
+
+			<div class="logBox">
+				<div class="logTitle" id="logTitle">Words shown this round</div>
+				<div class="logList" id="logList"></div>
+			</div>
+
+			<div class="divider"></div>
+
+			<div class="actions split">
+				<button class="btn ghost" id="btnUndo" type="button">
+					<span aria-hidden="true">⟲</span>
+					<span id="undoLabel">Undo point</span>
+				</button>
+				<button class="btn primary" id="btnNextRound" type="button">
+					<span id="nextRoundLabel">Next round</span>
+					<span class="kbd" aria-hidden="true">↵</span>
+				</button>
+			</div>
+		</section>
+
+		<section class="card screen hidden" id="screenGameOver" aria-label="Game over screen">
+			<div class="card-head center">
+				<div class="badge win" id="gameOverBadge">Game over</div>
+				<h2 id="gameOverTitle">Winner</h2>
+				<p class="muted" id="gameOverDesc">Final score</p>
+			</div>
+
+			<div class="finalScore">
+				<div class="finalTeam">
+					<div class="finalName" id="finalNameA">Team A</div>
+					<div class="finalNum" id="finalScoreA">0</div>
+				</div>
+				<div class="finalTeam">
+					<div class="finalName" id="finalNameB">Team B</div>
+					<div class="finalNum" id="finalScoreB">0</div>
+				</div>
+			</div>
+
+			<div class="divider"></div>
+
+			<div class="actions split">
+				<button class="btn" id="playAgain" type="button">
+					<span aria-hidden="true">↺</span>
+					<span id="againLabel">Play again</span>
+				</button>
+				<button class="btn primary" id="newSetup" type="button">
+					<span aria-hidden="true">⚙️</span>
+					<span id="setupLabel2">New setup</span>
+				</button>
+			</div>
+		</section>
+	</main>
+
+	<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+	<script src="script.js"></script>
+</body>
+
+</html>
