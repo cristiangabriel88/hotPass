@@ -351,10 +351,12 @@ input:focus {
 }
 
 .actions.split {
-	justify-content: space-between;
+	/* justify-content: space-between;
 	gap: 12px;
-	flex-wrap: wrap
+	flex-wrap: wrap */
+	justify-content: center;
 }
+
 
 .btn {
 	height: 46px;
@@ -369,6 +371,8 @@ input:focus {
 	cursor: pointer;
 	transition: transform .12s ease, background .12s ease, border .12s ease;
 	user-select: none;
+	padding-bottom: 20px;
+	padding-top: 15px;
 }
 
 .btn:hover {
@@ -399,6 +403,81 @@ input:focus {
 .btn.full {
 	width: 100%;
 	justify-content: center
+}
+
+.next-mega {
+	width: min(92vw, 460px);
+	height: 84px;
+	border-radius: 28px;
+	border: none;
+
+	justify-content: center;
+	gap: 14px;
+
+	background: linear-gradient(135deg, #7C5CFF 0%, #21D4FD 50%, #7C5CFF 100%);
+	color: #e7ff60;
+
+	font-size: 30px;
+	font-weight: 950;
+	letter-spacing: 1.9px;
+	text-transform: uppercase;
+	font-family: "Knewave", system-ui;
+	font-weight: 300;
+	font-style: normal;
+	/* padding-bottom: 90px; */
+
+	box-shadow:
+		0 9px 25px rgba(124, 92, 255, 0.55),
+		inset 0 -6px 0 rgba(0, 0, 0, 0.28);
+
+	position: relative;
+	overflow: hidden;
+
+	animation: nextPulse 2.2s infinite;
+}
+
+.next-mega::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(to bottom,
+			rgba(255, 255, 255, 0.38),
+			rgba(255, 255, 255, 0.08) 40%,
+			transparent 65%);
+	pointer-events: none;
+}
+
+.next-mega:hover {
+	transform: translateY(-2px) scale(1.01);
+	filter: saturate(1.15);
+}
+
+.next-mega:active {
+	transform: translateY(2px) scale(0.98);
+	box-shadow:
+		0 10px 24px rgba(124, 92, 255, 0.35),
+		inset 0 6px 0 rgba(0, 0, 0, 0.35);
+}
+
+/* 
+@keyframes nextPulse {
+	0% {
+		box-shadow: 0 0 0 0 rgba(33, 212, 253, .45), 0 22px 50px rgba(124, 92, 255, 0.55), inset 0 -6px 0 rgba(0, 0, 0, 0.28);
+	}
+
+	70% {
+		box-shadow: 0 0 0 18px rgba(33, 212, 253, 0), 0 22px 50px rgba(124, 92, 255, 0.55), inset 0 -6px 0 rgba(0, 0, 0, 0.28);
+	}
+
+	100% {
+		box-shadow: 0 0 0 0 rgba(33, 212, 253, 0), 0 22px 50px rgba(124, 92, 255, 0.55), inset 0 -6px 0 rgba(0, 0, 0, 0.28);
+	}
+} */
+
+@media (prefers-reduced-motion: reduce) {
+	.next-mega {
+		animation: none;
+	}
 }
 
 .actions-center {
@@ -437,6 +516,10 @@ input:focus {
 
 	position: relative;
 	overflow: hidden;
+
+	font-family: "Knewave", system-ui;
+	font-weight: 400;
+	font-style: normal;
 }
 
 /* glossy highlight */
@@ -615,21 +698,22 @@ input:focus {
 	align-items: center;
 	justify-content: center;
 	gap: 10px;
-	color: rgba(255, 255, 255, .86);
-	font-size: 13px;
+	color: rgba(232, 235, 40, 0.86);
+	font-size: 1.3rem;
+	font-weight: 700;
 	padding: 10px 12px;
-	border-radius: 18px;
-	border: 1px solid rgba(255, 255, 255, .10);
-	background: rgba(0, 0, 0, .18);
+	/* border-radius: 18px; */
+	/* border: 1px solid rgba(255, 255, 255, .10); */
+	/* background: rgba(0, 0, 0, .18); */
 }
 
-.dotLive {
+/* .dotLive {
 	width: 8px;
 	height: 8px;
 	border-radius: 50%;
 	background: var(--danger);
 	box-shadow: 0 0 18px rgba(255, 77, 109, .45);
-}
+} */
 
 .wordCard {
 	margin-top: 12px;
@@ -646,15 +730,114 @@ input:focus {
 }
 
 .wordNow {
-	margin-top: 10px;
-	font-size: 36px;
-	font-weight: 920;
-	letter-spacing: .6px;
-	padding: 10px 10px 8px;
-	border-radius: 18px;
-	background: linear-gradient(135deg, rgba(124, 92, 255, .18), rgba(33, 212, 253, .10));
-	border: 1px solid rgba(124, 92, 255, .22);
+	margin-top: 14px;
+	padding: 14px 18px 12px;
+
+	font-size: clamp(36px, 7vw, 54px);
+	font-weight: 950;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+
+	font-family: "Racing Sans One", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+
+	border-radius: 22px;
+
+	color: #b7ffac;
+
+	background:
+		linear-gradient(135deg,
+			rgba(124, 92, 255, 0.55),
+			rgba(33, 212, 253, 0.35));
+
+	border: 1px solid rgba(255, 255, 255, 0.25);
+
+	box-shadow:
+		0 18px 40px rgba(124, 92, 255, 0.55),
+		0 0 0 6px rgba(124, 92, 255, 0.12),
+		inset 0 -6px 0 rgba(0, 0, 0, 0.35);
+
+	text-shadow:
+		0 4px 18px rgba(0, 0, 0, 0.6),
+		0 0 28px rgba(124, 92, 255, 0.9);
+
+	position: relative;
+	overflow: hidden;
+
+	/* animation: wordPop 0.45s cubic-bezier(.2, .9, .3, 1); */
+	animation: wordPopMove 0.6s cubic-bezier(.2, .9, .3, 1),
+		wordFloat 2.2s ease-in-out infinite 0.6s;
 }
+
+/* glossy highlight sweep */
+.wordNow::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background:
+		linear-gradient(to bottom,
+			rgba(255, 255, 255, 0.45),
+			rgba(255, 255, 255, 0.10) 40%,
+			transparent 65%);
+	pointer-events: none;
+}
+
+/* subtle animated entrance */
+@keyframes wordPop {
+	0% {
+		transform: scale(0.92);
+		opacity: 0;
+	}
+
+	70% {
+		transform: scale(1.05);
+	}
+
+	100% {
+		transform: scale(1);
+		opacity: 1;
+	}
+}
+
+@keyframes wordPopMove {
+	0% {
+		transform: scale(0.85) translateY(14px);
+		opacity: 0;
+	}
+
+	60% {
+		transform: scale(1.08) translateY(-6px);
+	}
+
+	100% {
+		transform: scale(1) translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes wordFloat {
+	0% {
+		transform: translateY(0);
+	}
+
+	50% {
+		transform: translateY(-2px);
+	}
+
+	100% {
+		transform: translateY(0);
+	}
+}
+
+
+/* accessibility */
+@media (prefers-reduced-motion: reduce) {
+	.wordNow {
+		animation: none;
+	}
+}
+
 
 .wordSub {
 	margin-top: 10px;
@@ -715,26 +898,45 @@ input:focus {
 }
 
 .bigInner {
-	position: relative;
+	position: absolute;
+	inset: 0;
 	z-index: 2;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+
 	text-align: center;
-	padding: 0 18px;
 }
+
 
 .bigTime {
 	font-size: 40px;
 	font-weight: 950;
 	letter-spacing: .6px;
+	text-align: center;
 }
 
 .bigHint {
+	margin-left: 6px;
 	margin-top: 6px;
-	font-size: 13px;
-	color: rgba(255, 255, 255, .84);
+	text-align: center;
+	font-size: 1.5rem;
+	font-weight: 700;
+	letter-spacing: 0.35em;
+	color: rgba(255, 255, 255, 0.84);
+	font-family: "Knewave", system-ui;
+	font-weight: 400;
+	font-style: normal;
 }
 
 .bigHint.muted {
-	color: var(--muted)
+	ont-family: "Knewave", system-ui;
+	font-weight: 400;
+	font-style: normal;
+	color: rgb(242, 233, 233);
+	text-align: center;
 }
 
 .bottomRow {
@@ -787,9 +989,83 @@ input:focus {
 
 .sumvalue {
 	margin-top: 8px;
-	font-size: 18px;
-	font-weight: 860
+	font-size: 23px;
+	font-weight: 860;
+	font-family: "Racing Sans One", sans-serif;
+	font-weight: 400;
+	font-style: normal;
+	color: #93e9fc
 }
+
+.sumcard-winner {
+	position: relative;
+	text-align: center;
+	padding: 22px 18px;
+	border-radius: 26px;
+
+	background:
+		linear-gradient(135deg,
+			rgba(124, 92, 255, 0.35),
+			rgba(33, 212, 253, 0.25));
+
+	border: 1px solid rgba(255, 255, 255, 0.25);
+
+	box-shadow:
+		0 30px 80px rgba(124, 92, 255, 0.55),
+		inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+
+	animation: winnerPulse 1.6s ease-in-out infinite;
+}
+
+/* label */
+.sumcard-winner .sumlabel {
+	font-size: 14px;
+	font-weight: 700;
+	letter-spacing: 0.1rem;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, 0.85);
+	margin-bottom: 6px;
+}
+
+/* BIG TEAM NAME */
+.sumcard-winner .sumvalue {
+	font-size: clamp(28px, 6vw, 42px);
+	font-weight: 950;
+	letter-spacing: 0.02em;
+	color: #9dff9d;
+	text-shadow:
+		0 4px 20px rgba(124, 92, 255, 0.9),
+		0 0 30px rgba(33, 212, 253, 0.7);
+}
+
+/* pulse / hype animation */
+@keyframes winnerPulse {
+	0% {
+		transform: scale(1);
+		box-shadow:
+			0 30px 80px rgba(124, 92, 255, 0.45);
+	}
+
+	50% {
+		transform: scale(1.04);
+		box-shadow:
+			0 40px 120px rgba(124, 92, 255, 0.75);
+	}
+
+	100% {
+		transform: scale(1);
+		box-shadow:
+			0 30px 80px rgba(124, 92, 255, 0.45);
+	}
+}
+
+/* accessibility */
+@media (prefers-reduced-motion: reduce) {
+	.sumcard-winner {
+		animation: none;
+	}
+}
+
 
 .logBox {
 	border-radius: 22px;
@@ -799,7 +1075,8 @@ input:focus {
 }
 
 .logTitle {
-	font-weight: 780
+	font-weight: 200;
+	font-size: 0.8rem;
 }
 
 .logList {
@@ -968,4 +1245,114 @@ input:focus {
 .sentence-row .muted {
 	font-size: 13px;
 	color: var(--muted);
+}
+
+#screenGameOver h2 {
+	font-family: "Knewave", system-ui;
+	font-size: clamp(42px, 8vw, 68px);
+	letter-spacing: 2px;
+	color: #b7ffac;
+	text-shadow:
+		0 6px 25px rgba(0, 0, 0, .6),
+		0 0 35px rgba(124, 92, 255, .85),
+		0 0 60px rgba(33, 212, 253, .7);
+	animation: gameOverPop .7s cubic-bezier(.2, .9, .3, 1);
+}
+
+@keyframes gameOverPop {
+	0% {
+		transform: scale(.85) translateY(18px);
+		opacity: 0;
+	}
+
+	60% {
+		transform: scale(1.08) translateY(-6px);
+	}
+
+	100% {
+		transform: scale(1) translateY(0);
+		opacity: 1;
+	}
+}
+
+#gameOverBadge {
+	font-family: "Racing Sans One", sans-serif;
+	font-size: 14px;
+	letter-spacing: .3em;
+	text-transform: uppercase;
+	background: linear-gradient(135deg, #56E20C, #b7ffac);
+	color: #0b1207;
+	box-shadow:
+		0 0 25px rgba(86, 226, 12, .9),
+		0 0 60px rgba(86, 226, 12, .6);
+	animation: badgePulse 1.8s ease-in-out infinite;
+}
+
+@keyframes badgePulse {
+	0% {
+		transform: scale(1);
+	}
+
+	50% {
+		transform: scale(1.08);
+	}
+
+	100% {
+		transform: scale(1);
+	}
+}
+
+.finalTeam {
+	background: linear-gradient(135deg, rgba(124, 92, 255, .22), rgba(33, 212, 253, .16));
+	box-shadow:
+		0 18px 45px rgba(124, 92, 255, .35),
+		inset 0 -4px 0 rgba(0, 0, 0, .35);
+	animation: scoreLift .6s ease both;
+}
+
+@keyframes scoreLift {
+	from {
+		transform: translateY(14px);
+		opacity: 0;
+	}
+
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+.finalName {
+	font-family: "Racing Sans One", sans-serif;
+	letter-spacing: .15em;
+	text-transform: uppercase;
+	color: rgba(255, 255, 255, .75);
+}
+
+.finalNum {
+	font-family: "Knewave", system-ui;
+	font-size: clamp(32px, 6vw, 46px);
+	color: #fff;
+	text-shadow:
+		0 4px 18px rgba(0, 0, 0, .6),
+		0 0 30px rgba(124, 92, 255, .7);
+}
+
+#screenGameOver .actions {
+	justify-content: center;
+	gap: 18px;
+}
+
+#screenGameOver .btn {
+	font-family: "Racing Sans One", sans-serif;
+	font-size: 18px;
+	letter-spacing: .08em;
+	padding: 0 22px;
+	box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+}
+
+#screenGameOver .btn.primary {
+	box-shadow:
+		0 20px 45px rgba(124, 92, 255, .55),
+		inset 0 -4px 0 rgba(0, 0, 0, .35);
 }

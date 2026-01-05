@@ -5,6 +5,12 @@
 
 <head>
 	<meta charset="utf-8" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Knewave&display=swap" rel="stylesheet">
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Knewave&family=Racing+Sans+One&display=swap" rel="stylesheet">
 	<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
 	<title>Hot Pass</title>
 	<link rel="stylesheet" href="styles.css" />
@@ -94,7 +100,7 @@
 
 					<div class="sentence-row">
 						<span id="roundSecLabel">Round lasts around</span>
-						<input id="roundSec" type="number" min="10" max="90" value="30" />
+						<input id="roundSec" type="number" min="10" max="90" value="5" />
 						<span id="secLabel">seconds</span>
 					</div>
 				</div>
@@ -123,8 +129,9 @@
 		<section class="card screen hidden playShell" id="screenPlay" aria-label="Play screen">
 
 			<div class="wordCard" aria-label="Current word">
-				<div class="wordNow" id="wordNow">—</div>
 				<div class="wordSub muted" id="wordSub">Tap PASS when you hand the phone over.</div>
+
+				<div class="wordNow" id="wordNow">—</div>
 			</div>
 
 			<button class="bigPass" id="bigPass" type="button" disabled aria-label="Pass">
@@ -134,6 +141,11 @@
 					<div class="bigHint" id="bigHint">Start round</div>
 				</div>
 			</button>
+
+			<div class="activeLine" id="activeLine">
+				<!-- <span class="dotLive" aria-hidden="true"></span> -->
+				<span id="activeText">Team A's turn</span>
+			</div>
 
 			<div class="topScore">
 				<div class="scorePill">
@@ -148,11 +160,6 @@
 					<div class="sn" id="scoreNameB">Team B</div>
 					<div class="sv" id="scoreB">0</div>
 				</div>
-			</div>
-
-			<div class="activeLine" id="activeLine">
-				<span class="dotLive" aria-hidden="true"></span>
-				<span id="activeText">Team A holds the phone</span>
 			</div>
 
 			<div class="bottomRow">
@@ -179,14 +186,14 @@
 		</section>
 
 		<section class="card screen hidden" id="screenRoundEnd" aria-label="Round end screen">
-			<div class="card-head center">
-				<!-- <div class="badge" id="roundEndBadge">Round result</div> -->
+			<!-- <div class="card-head center">
+				<div class="badge" id="roundEndBadge">Round result</div>
 				<h2 id="roundEndTitle">BOOM!</h2>
 				<p class="muted" id="roundEndDesc">Round statistics</p>
-			</div>
+			</div> -->
 
 			<div class="summary">
-				<div class="sumcard">
+				<div class="sumcard sumcard-winner">
 					<div class="sumlabel" id="sumWinnerLabel">Point to</div>
 					<div class="sumvalue" id="sumWinner">—</div>
 				</div>
@@ -200,23 +207,12 @@
 				</div>
 			</div>
 
-			<div class="divider"></div>
-
-			<div class="logBox">
-				<div class="logTitle" id="logTitle">Words shown this round</div>
-				<div class="logList" id="logList"></div>
-			</div>
 
 			<div class="divider"></div>
 
 			<div class="actions split">
-				<button class="btn ghost" id="btnUndo" type="button">
-					<span aria-hidden="true">⟲</span>
-					<span id="undoLabel">Undo point</span>
-				</button>
-				<button class="btn primary" id="btnNextRound" type="button">
+				<button class="btn primary next-mega" id="btnNextRound" type="button">
 					<span id="nextRoundLabel">Next round</span>
-					<span class="kbd" aria-hidden="true">↵</span>
 				</button>
 			</div>
 		</section>

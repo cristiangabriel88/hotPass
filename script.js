@@ -48,11 +48,11 @@ const I18N = {
     ],
     start: "Start",
     round: "Round",
-    holdsPhone: "holds the phone",
+    holdsPhone: "'s turn",
     wordSub: "When the word is said tap PASS PHONE and hand the phone over.",
     startRound: "Start round",
     tapToPass: "PASS PHONE",
-    tapToStart: "Start round",
+    tapToStart: "START",
     handoffTitle: "Give to",
     back: "Back",
     reset: "Reset",
@@ -407,13 +407,13 @@ function renderI18N() {
   ui.backLabel.textContent = i.back;
   ui.resetLabel.textContent = i.reset;
 
-  ui.roundEndTitle.textContent = i.boom;
-  ui.roundEndDesc.textContent = i.roundStats;
+  //   ui.roundEndTitle.textContent = i.boom;
+  //   ui.roundEndDesc.textContent = i.roundStats;
   ui.sumWinnerLabel.textContent = i.pointTo;
   ui.sumLoserLabel.textContent = i.holdingPhone;
   ui.sumTimeLabel.textContent = i.roundLength;
-  ui.logTitle.textContent = i.wordsThisRound;
-  ui.undoLabel.textContent = i.undoPoint;
+  //   ui.logTitle.textContent = i.wordsThisRound;
+  //   ui.undoLabel.textContent = i.undoPoint;
   ui.nextRoundLabel.textContent = i.nextRound;
 
   ui.gameOverBadge.textContent = i.gameOver;
@@ -516,11 +516,7 @@ function fmt(ms) {
 }
 
 function randomBoomMs() {
-  const base = state.roundSec;
-  const fuzz = state.fuzzSec;
-  const sec = base + (Math.random() * (fuzz * 2) - fuzz);
-  const finalSec = clamp(sec, 5, 120);
-  return Math.floor(finalSec * 1000);
+  return Math.floor(state.roundSec * 1000);
 }
 
 function pickWord() {
@@ -700,7 +696,7 @@ function endRound() {
     state.lastRound.passes
   } ${state.lang === "ro" ? "pase" : "passes"}`;
 
-  ui.logList.innerHTML = "";
+  //   ui.logList.innerHTML = "";
   state.lastRound.words.forEach((x, idx) => {
     const item = document.createElement("div");
     item.className = "logItem";
@@ -714,7 +710,7 @@ function endRound() {
     w.textContent = x.word;
     item.appendChild(l);
     item.appendChild(w);
-    ui.logList.appendChild(item);
+    // ui.logList.appendChild(item);
   });
 
   updateTopUI();
