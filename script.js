@@ -1,29 +1,4 @@
-const WORDS = {
-  en: [
-    "Pineapple",
-    "Volcano",
-    "Headphones",
-    "Elevator",
-    "Backpack",
-    "Snowman",
-    "Guitar",
-    "Popcorn",
-    "Astronaut",
-    "Pizza",
-  ],
-  ro: [
-    "Ananas",
-    "Vulcan",
-    "Casti",
-    "Lift",
-    "Rucsac",
-    "Om de zapada",
-    "Chitara",
-    "Popcorn",
-    "Astronaut",
-    "Pizza",
-  ],
-};
+import { WORDS } from "./words.js";
 
 const I18N = {
   en: {
@@ -66,6 +41,7 @@ const I18N = {
     undoPoint: "Undo point",
     nextRound: "Next round",
     gameOver: "Game over",
+    gameOverWinner: "Wins",
     finalScore: "Final score",
     playAgain: "Play again",
     newSetup: "New setup",
@@ -117,6 +93,7 @@ const I18N = {
     undoPoint: "Anulează punct",
     nextRound: "Runda următoare",
     gameOver: "Joc terminat",
+    gameOver: "Câștigă",
     finalScore: "Scor final",
     playAgain: "Joacă din nou",
     newSetup: "Setare nouă",
@@ -239,6 +216,7 @@ const ui = {
   nextRoundLabel: $("nextRoundLabel"),
 
   gameOverBadge: $("gameOverBadge"),
+  gameOverWinner: $("gameOverWinner"),
   gameOverTitle: $("gameOverTitle"),
   gameOverDesc: $("gameOverDesc"),
   finalNameA: $("finalNameA"),
@@ -417,6 +395,7 @@ function renderI18N() {
   ui.nextRoundLabel.textContent = i.nextRound;
 
   ui.gameOverBadge.textContent = i.gameOver;
+  ui.gameOverWinner.textContent = i.gameOverWinner;
   ui.againLabel.textContent = i.playAgain;
   ui.setupLabel2.textContent = i.newSetup;
 

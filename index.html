@@ -94,7 +94,7 @@
 				<div class="panel compact sentence-panel">
 					<div class="sentence-row">
 						<span id="playToLabel">First to</span>
-						<input id="playTo" type="number" min="1" max="25" value="5" />
+						<input id="playTo" type="number" min="1" max="25" value="1" />
 						<span id="playToHint">points wins!</span>
 					</div>
 
@@ -221,6 +221,7 @@
 			<div class="card-head center">
 				<div class="badge win" id="gameOverBadge">Game over</div>
 				<h2 id="gameOverTitle">Winner</h2>
+				<h2 id="gameOverWinner">Wins</h2>
 				<p class="muted" id="gameOverDesc">Final score</p>
 			</div>
 
@@ -238,7 +239,7 @@
 			<div class="divider"></div>
 
 			<div class="actions split">
-				<button class="btn" id="playAgain" type="button">
+				<button class="btn primary" id="playAgain" type="button">
 					<span aria-hidden="true">↺</span>
 					<span id="againLabel">Play again</span>
 				</button>
@@ -247,12 +248,20 @@
 					<span id="setupLabel2">New setup</span>
 				</button>
 			</div>
+
+			<div class="kofiPitch">${t("kofiPitch")}</div>
+			<div class="kofiWrap">
+				<a href="https://ko-fi.com/cristian_gabriel/?amount=5" target="_blank" rel="noopener noreferrer">
+					<img src="https://storage.ko-fi.com/cdn/kofi5.png" alt="${t(" kofiAlt")}" />
+				</a>
+			</div>
 		</section>
 	</main>
 
 	<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-	<script src="script.js"></script>
+	<script type="module" src="script.js"></script>
+
 </body>
 
 </html>
