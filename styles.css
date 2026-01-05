@@ -20,10 +20,28 @@
 	box-sizing: border-box
 }
 
-/* html,
+html,
 body {
-	height: 100%
-} */
+	height: 100%;
+}
+
+body {
+	min-height: 100svh;
+}
+
+.wrap {
+	padding-bottom: 24px;
+}
+
+html,
+body {
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+
+body {
+	overscroll-behavior: none;
+}
 
 body {
 	margin: 0;
@@ -37,7 +55,7 @@ body {
 
 .bg {
 	position: fixed;
-	inset: -60px;
+	inset: -60px 0;
 	background:
 		radial-gradient(700px 500px at 15% 40%, rgba(124, 92, 255, .12), transparent 60%),
 		radial-gradient(700px 500px at 80% 70%, rgba(33, 212, 253, .09), transparent 65%);

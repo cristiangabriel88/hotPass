@@ -407,7 +407,6 @@ function renderI18N() {
   ui.backLabel.textContent = i.back;
   ui.resetLabel.textContent = i.reset;
 
-  ui.roundEndBadge.textContent = i.roundResult;
   ui.roundEndTitle.textContent = i.boom;
   ui.roundEndDesc.textContent = i.roundStats;
   ui.sumWinnerLabel.textContent = i.pointTo;
