@@ -35,27 +35,25 @@ const I18N = {
     teamName: "Team name",
     player1: "Player 1",
     player2: "Player 2",
-    playTo: "Play to",
-    playToHint: "First team to reach this score wins.",
-    rangeLabel: "Boom timer range",
-    sec: "sec",
-    rangeHint: "Random each round. Beeps speed up near the end.",
+    playTo: "First to",
+    playToHint: "points wins.",
+    roundSecLabel: "Round lasts around",
+    secLabel: "sec",
     rulesHead: "Quick rules",
     rules: [
-      "Start the round: a word shows immediately.",
+      "Start the round: a word will be shown.",
       "Get your teammate to say it without you saying the word.",
-      "Tap the big circle to PASS (phone to other team).",
+      "Once he says it tap the big circle to PASS the phone to other team.",
       "When it booms, the team holding the phone loses the round.",
     ],
     start: "Start",
     round: "Round",
     holdsPhone: "holds the phone",
-    wordSub: "Tap PASS when you hand the phone over.",
+    wordSub: "When the word is said tap PASS PHONE and hand the phone over.",
     startRound: "Start round",
-    tapToPass: "Tap to PASS",
+    tapToPass: "PASS PHONE",
     tapToStart: "Start round",
-    handoffTitle: "Hand the phone to",
-    newWordIn: "New word in 1 seconds…",
+    handoffTitle: "Give to",
     back: "Back",
     reset: "Reset",
     roundResult: "Round result",
@@ -75,7 +73,7 @@ const I18N = {
     toastSoundOff: "Sound OFF",
     toastLangEN: "English",
     toastLangRO: "Romanian",
-    toastNeedRange: "Fix timer range (min must be < max).",
+    toastNeedRoundSec: "Choose a valid round length (10-90 sec).",
     toastNeedPlayTo: "Choose a valid target score.",
     toastPausedAudio: "Tap once to enable sound.",
   },
@@ -89,15 +87,14 @@ const I18N = {
     player1: "Jucător 1",
     player2: "Jucător 2",
     playTo: "Până la",
-    playToHint: "Prima echipă care ajunge la acest scor câștigă.",
-    rangeLabel: "Interval timer boom",
-    sec: "sec",
-    rangeHint: "Aleator la fiecare rundă. Bipurile se accelerează spre final.",
+    playToHint: "puncte caștigă.",
+    roundSecLabel: "Runda durează în jur de",
+    secLabel: "sec",
     rulesHead: "Reguli rapide",
     rules: [
       "Pornește runda: cuvântul apare imediat.",
       "Fă-ți colegul să-l spună fara a spune tu cuvântul.",
-      "Apasă cercul mare ca să DAI (telefonul la cealaltă echipă).",
+      "Imediat ce a spus cuvântul apasă cercul mare ca să DAI telefonul la cealaltă echipă.",
       "Când face „boom”, echipa care ține telefonul pierde runda.",
     ],
     start: "Start",
@@ -107,8 +104,7 @@ const I18N = {
     startRound: "Pornește runda",
     tapToPass: "Apasă ca să DAI",
     tapToStart: "Pornește runda",
-    handoffTitle: "Dă telefonul către",
-    newWordIn: "Cuvânt nou în 1 secundă…",
+    handoffTitle: "Dă-i lui",
     back: "Înapoi",
     reset: "Reset",
     roundResult: "Rezultat rundă",
@@ -128,7 +124,7 @@ const I18N = {
     toastSoundOff: "Sunet OPRIT",
     toastLangEN: "Engleză",
     toastLangRO: "Română",
-    toastNeedRange: "Corectează intervalul (min trebuie să fie < max).",
+    toastNeedRoundSec: "Alege o durata valida (10-90 sec).",
     toastNeedPlayTo: "Alege un scor țintă valid.",
     toastPausedAudio: "Apasă o dată ca să activezi sunetul.",
   },
@@ -191,10 +187,8 @@ const ui = {
   player2LabelB: $("player2LabelB"),
   playToLabel: $("playToLabel"),
   playToHint: $("playToHint"),
-  rangeLabel: $("rangeLabel"),
-  secLabel1: $("secLabel1"),
-  secLabel2: $("secLabel2"),
-  rangeHint: $("rangeHint"),
+  roundSecLabel: $("roundSecLabel"),
+  secLabel: $("secLabel"),
   rulesHead: $("rulesHead"),
   rulesList: $("rulesList"),
   startGame: $("startGame"),
@@ -218,8 +212,6 @@ const ui = {
   bigTime: $("bigTime"),
   bigHint: $("bigHint"),
 
-  btnStartRound: $("btnStartRound"),
-  startRoundLabel: $("startRoundLabel"),
   backToSetup: $("backToSetup"),
   backLabel: $("backLabel"),
   resetBtn: $("resetBtn"),
@@ -267,8 +259,7 @@ const ui = {
   bP1: $("bP1"),
   bP2: $("bP2"),
   playTo: $("playTo"),
-  minSec: $("minSec"),
-  maxSec: $("maxSec"),
+  roundSec: $("roundSec"),
 };
 
 const state = {
@@ -294,7 +285,8 @@ const state = {
 
   round: 1,
   targetScore: 5,
-  range: { min: 8, max: 20 },
+  roundSec: 30,
+  fuzzSec: 15,
 
   activeTeam: 0,
 
@@ -353,26 +345,21 @@ function applySetup() {
   ];
 
   const playTo = parseInt(ui.playTo.value, 10);
-  const minSec = parseInt(ui.minSec.value, 10);
-  const maxSec = parseInt(ui.maxSec.value, 10);
+  const roundSec = parseInt(ui.roundSec.value, 10);
 
   if (!Number.isFinite(playTo) || playTo < 1 || playTo > 25) {
     toast(t("toastNeedPlayTo"));
     return false;
   }
-  if (
-    !Number.isFinite(minSec) ||
-    !Number.isFinite(maxSec) ||
-    minSec < 5 ||
-    maxSec > 90 ||
-    minSec >= maxSec
-  ) {
-    toast(t("toastNeedRange"));
+
+  if (!Number.isFinite(roundSec) || roundSec < 5 || roundSec > 9999) {
+    toast(t("toastNeedRoundSec"));
     return false;
   }
 
   state.targetScore = playTo;
-  state.range = { min: minSec, max: maxSec };
+  state.roundSec = roundSec;
+  state.fuzzSec = 15;
 
   return true;
 }
@@ -399,10 +386,9 @@ function renderI18N() {
 
   ui.playToLabel.textContent = i.playTo;
   ui.playToHint.textContent = i.playToHint;
-  ui.rangeLabel.textContent = i.rangeLabel;
-  ui.secLabel1.textContent = i.sec;
-  ui.secLabel2.textContent = i.sec;
-  ui.rangeHint.textContent = i.rangeHint;
+
+  ui.roundSecLabel.textContent = i.roundSecLabel;
+  ui.secLabel.textContent = i.secLabel;
 
   ui.rulesHead.textContent = i.rulesHead;
   ui.rulesList.innerHTML = "";
@@ -418,7 +404,6 @@ function renderI18N() {
 
   ui.wordSub.textContent = i.wordSub;
 
-  ui.startRoundLabel.textContent = i.startRound;
   ui.backLabel.textContent = i.back;
   ui.resetLabel.textContent = i.reset;
 
@@ -437,7 +422,6 @@ function renderI18N() {
   ui.setupLabel2.textContent = i.newSetup;
 
   ui.handoffTitle.textContent = i.handoffTitle;
-  ui.handoffSub.textContent = i.newWordIn;
 
   updateTopUI();
   updateActiveUI();
@@ -533,9 +517,11 @@ function fmt(ms) {
 }
 
 function randomBoomMs() {
-  const r = state.range;
-  const sec = r.min + Math.random() * (r.max - r.min);
-  return Math.floor(sec * 1000);
+  const base = state.roundSec;
+  const fuzz = state.fuzzSec;
+  const sec = base + (Math.random() * (fuzz * 2) - fuzz);
+  const finalSec = clamp(sec, 5, 120);
+  return Math.floor(finalSec * 1000);
 }
 
 function pickWord() {
@@ -574,7 +560,6 @@ function startRound() {
   state.passes = 0;
   state.roundWords = [];
 
-  ui.btnStartRound.disabled = true;
   ui.bigPass.disabled = false;
 
   state.startedAt = performance.now();
@@ -683,7 +668,6 @@ function endRound() {
   stopTimers();
   boomSound();
 
-  ui.btnStartRound.disabled = false;
   ui.bigPass.disabled = true;
   ui.bigTime.textContent = "00:00";
   setRingProgress(1);
@@ -769,6 +753,8 @@ function nextRound() {
   updateActiveUI();
   updateBigHint();
 
+  ui.bigPass.disabled = false;
+
   setScreen("play");
 }
 
@@ -818,8 +804,7 @@ function resetGame(toSetup) {
   ui.wordNow.textContent = "—";
   ui.bigTime.textContent = "00:00";
   setRingProgress(0);
-  ui.btnStartRound.disabled = false;
-  ui.bigPass.disabled = true;
+  ui.bigPass.disabled = false;
   updateBigHint();
   updateTopUI();
   updateActiveUI();
@@ -864,14 +849,9 @@ function wire() {
     updateActiveUI();
     ui.wordNow.textContent = "—";
     ui.bigPass.disabled = false;
-    ui.btnStartRound.disabled = false;
     updateBigHint();
     setRingProgress(0);
     setScreen("play");
-  });
-
-  ui.btnStartRound.addEventListener("click", () => {
-    startRound();
   });
 
   ui.bigPass.addEventListener("click", () => {
@@ -913,7 +893,7 @@ function wire() {
 
 function init() {
   renderI18N();
-  ui.bigPass.disabled = true;
+  ui.bigPass.disabled = false;
   setRingProgress(0);
   updateBigHint();
   setScreen("setup");

@@ -85,29 +85,17 @@
 			<div class="divider"></div>
 
 			<div class="grid2">
-				<div class="panel compact">
-					<div class="field">
-						<label for="playTo" id="playToLabel">Play to</label>
-						<div class="row">
-							<input id="playTo" type="number" min="1" max="25" value="5" />
-							<div class="hint" id="playToHint">First team to reach this score wins.</div>
-						</div>
+				<div class="panel compact sentence-panel">
+					<div class="sentence-row">
+						<span id="playToLabel">First to</span>
+						<input id="playTo" type="number" min="1" max="25" value="5" />
+						<span id="playToHint">points wins!</span>
 					</div>
 
-					<div class="field">
-						<label id="rangeLabel">Boom timer range</label>
-						<div class="row gap">
-							<div class="row">
-								<input id="minSec" type="number" min="5" max="60" value="8" />
-								<span class="unit" id="secLabel1">sec</span>
-							</div>
-							<span class="muted">—</span>
-							<div class="row">
-								<input id="maxSec" type="number" min="6" max="90" value="20" />
-								<span class="unit" id="secLabel2">sec</span>
-							</div>
-						</div>
-						<div class="hint" id="rangeHint">Random each round. Beeps speed up near the end.</div>
+					<div class="sentence-row">
+						<span id="roundSecLabel">Round lasts around</span>
+						<input id="roundSec" type="number" min="10" max="90" value="30" />
+						<span id="secLabel">seconds</span>
 					</div>
 				</div>
 
@@ -168,9 +156,6 @@
 			</div>
 
 			<div class="bottomRow">
-				<button class="btn primary full" id="btnStartRound" type="button">
-					<span id="startRoundLabel">Start round</span>
-				</button>
 				<div class="bottomActions">
 					<button class="btn ghost" id="backToSetup" type="button">
 						<span aria-hidden="true">←</span>
@@ -189,7 +174,6 @@
 						<div class="handoffTitle" id="handoffTitle">Hand the phone</div>
 						<div class="handoffChip" id="handoffTeam">Team B</div>
 					</div>
-					<div class="handoffSub muted" id="handoffSub">New word in 2 seconds…</div>
 				</div>
 			</div>
 		</section>

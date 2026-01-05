@@ -201,6 +201,74 @@ h2 {
 	padding: 12px
 }
 
+.panel.compact .field .row {
+	justify-content: space-between;
+	align-items: center;
+	gap: 12px;
+	flex-wrap: nowrap;
+}
+
+.panel.compact .field label {
+	margin: 0;
+}
+
+.panel.compact #playTo,
+.panel.compact #roundSec {
+	width: 86px;
+	height: 40px;
+	border-radius: 14px;
+	padding: 0 10px;
+}
+
+.panel.compact #secLabel {
+	margin-left: -6px;
+	white-space: nowrap;
+}
+
+.panel.compact #playToHint,
+.panel.compact #roundSecHint {
+	margin-left: auto;
+	/* text-align: right; */
+	flex: 1;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.simple-setup {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.setup-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 15px;
+	color: var(--text);
+}
+
+.setup-text {
+	white-space: nowrap;
+}
+
+.setup-row input {
+	width: 72px;
+	height: 38px;
+	text-align: center;
+	border-radius: 14px;
+	font-size: 16px;
+	font-weight: 700;
+}
+
+.setup-row .muted {
+	margin-left: 4px;
+	font-size: 13px;
+	color: var(--muted);
+}
+
+
 .panel-head {
 	display: flex;
 	justify-content: center;
@@ -774,47 +842,53 @@ input:focus {
 .handoff {
 	position: fixed;
 	inset: 0;
-	background: rgba(0, 0, 0, .55);
-	backdrop-filter: blur(8px);
+	background: rgba(0, 0, 0, .65);
+	backdrop-filter: blur(10px);
 	display: grid;
 	place-items: center;
-	padding: 18px;
+	padding: 20px;
 	z-index: 50;
 }
 
 .handoffCard {
 	width: min(520px, 100%);
+	padding: 36px 24px;
 	border-radius: 28px;
-	border: 1px solid rgba(255, 255, 255, .12);
-	background: linear-gradient(180deg, rgba(255, 255, 255, .07), rgba(255, 255, 255, .04));
-	box-shadow: 0 30px 90px rgba(0, 0, 0, .55);
-	padding: 16px;
-}
-
-.handoffTop {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-	gap: 12px;
+	background: linear-gradient(180deg, rgba(255, 255, 255, .10), rgba(255, 255, 255, .04));
+	box-shadow: 0 40px 120px rgba(0, 0, 0, .7);
+	text-align: center;
+	transform: scale(1.05);
 }
 
 .handoffTitle {
-	font-size: 16px;
-	font-weight: 850;
+	font-size: 1rem;
+	font-weight: 500;
+	letter-spacing: .04em;
+	line-height: 1.1;
+	text-transform: uppercase;
 }
 
 .handoffChip {
-	padding: 8px 12px;
-	border-radius: 999px;
-	border: 1px solid rgba(255, 255, 255, .14);
-	background: rgba(124, 92, 255, .14);
-	font-weight: 800;
+	margin-top: 10px;
+	font-size: 1.5rem;
+	font-weight: 700;
+	letter-spacing: 0.1rem;
+	line-height: 1.1;
+	text-transform: uppercase;
+	color: rgba(123, 220, 32, 0.92);
 }
 
-.handoffSub {
-	margin-top: 10px;
-	color: var(--muted)
+.handoffTeam {
+	display: inline-block;
+	margin-top: 14px;
+	padding: 12px 22px;
+	border-radius: 999px;
+	background: linear-gradient(135deg, var(--accent), var(--accent2));
+	color: #000;
+	font-weight: 900;
+	font-size: clamp(20px, 4vw, 28px);
 }
+
 
 .toast {
 	position: fixed;
@@ -845,4 +919,35 @@ input:focus {
 		animation: none !important;
 		transition: none !important
 	}
+}
+
+.sentence-panel {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.sentence-row {
+	display: flex;
+	align-items: center;
+	justify-content: flex-start;
+	gap: 10px;
+	flex-wrap: wrap;
+	font-size: 15px;
+	color: var(--text);
+}
+
+.sentence-row input {
+	width: 84px;
+	height: 40px;
+	border-radius: 14px;
+	padding: 0 10px;
+	text-align: center;
+	font-size: 16px;
+	font-weight: 800;
+}
+
+.sentence-row .muted {
+	font-size: 13px;
+	color: var(--muted);
 }
